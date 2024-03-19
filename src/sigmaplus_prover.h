@@ -18,7 +18,7 @@ public:
                std::size_t l,
                const Exponent& r,
                bool fPadding,
-               SigmaPlusProof<Exponent, GroupElement>& proof_out);
+               SigmaPlusProof<Exponent, GroupElement>& proof_out,char *message="msg");
 
 private:
     GroupElement g_;

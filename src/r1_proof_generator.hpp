@@ -34,7 +34,9 @@ template<class Exponent, class GroupElement>
 void R1ProofGenerator<Exponent,GroupElement>::proof(
         std::vector<Exponent>& a_out,
         R1Proof<Exponent, GroupElement>& proof_out,
-        bool skip_final_response) {
+        bool skip_final_response,char *message) {
+    message = "msg";
+
     a_out.resize(n_ * m_);
     for(int j = 0; j < m_; ++j) {
         for(int i = 1; i < n_; ++i) {
@@ -82,7 +84,7 @@ void R1ProofGenerator<Exponent,GroupElement>::proof(
     if (!skip_final_response) {
         Exponent x;
         std::vector<GroupElement> group_elements = {A, B_Commit, C, D};
-        SigmaPrimitives<Exponent, GroupElement>::generate_challenge(group_elements, x);
+        SigmaPrimitives<Exponent, GroupElement>::generate_challenge(group_elements, x,message);
         generate_final_response(a_out, x, proof_out);
     }
 }

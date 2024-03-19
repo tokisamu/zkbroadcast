@@ -19,7 +19,7 @@ void SigmaPlusProver<Exponent, GroupElement>::proof(
         std::size_t l,
         const Exponent& r,
         bool fPadding,
-        SigmaPlusProof<Exponent, GroupElement>& proof_out) {
+        SigmaPlusProof<Exponent, GroupElement>& proof_out,char *message) {
     std::size_t setSize = commits.size();
     assert(setSize > 0);
 
@@ -130,7 +130,7 @@ void SigmaPlusProver<Exponent, GroupElement>::proof(
 
     group_elements.insert(group_elements.end(), Gk.begin(), Gk.end());
     Exponent x;
-    SigmaPrimitives<Exponent, GroupElement>::generate_challenge(group_elements, x);
+    SigmaPrimitives<Exponent, GroupElement>::generate_challenge(group_elements, x,message);
     r1prover.generate_final_response(a, x, proof_out.r1Proof_);
 
     //computing z

@@ -1,5 +1,7 @@
 #include "../bitcoin/crypto/sha256.h"
-
+#include <stdio.h>
+#include <string.h>
+#include<iostream>
 namespace sigma {
 
 template<class Exponent, class GroupElement>
@@ -62,18 +64,24 @@ std::vector<uint64_t> SigmaPrimitives<Exponent, GroupElement>::convert_to_nal(
     return result;
 }
 
+
 template<class Exponent, class GroupElement>
 void SigmaPrimitives<Exponent, GroupElement>::generate_challenge(
         const std::vector<GroupElement>& group_elements,
-        Exponent& result_out) {
+        Exponent& result_out,
+        char *message) {
     if (group_elements.empty())
         throw std::runtime_error("Group elements empty while generating a challenge.");
     CSHA256 hash;
+    unsigned char* msg;
+    msg = (unsigned char *)message;
     std::vector<unsigned char> data(group_elements.size() * group_elements[0].memoryRequired());
     unsigned char* current = data.data();
     for (size_t i = 0; i < group_elements.size(); ++i) {
         current = group_elements[i].serialize(current);
     }
+    for (size_t i = 0; i < strlen(message); ++i)
+        data.push_back(message[i]);
     hash.Write(data.data(), data.size());
     unsigned char result_data[CSHA256::OUTPUT_SIZE];
     hash.Finalize(result_data);

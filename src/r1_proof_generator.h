@@ -1,6 +1,6 @@
 #ifndef ZCOIN_SIGMA_R1_PROOF_GENERATOR_H
 #define ZCOIN_SIGMA_R1_PROOF_GENERATOR_H
-
+#include<iostream>
 #include "r1_proof.h"
 #include "sigma_primitives.h"
 
@@ -33,7 +33,7 @@ public:
      */
     void proof(std::vector<Exponent>& a_out,
                R1Proof<Exponent, GroupElement>& proof_out,
-               bool skip_final_response = false);
+               bool skip_final_response = false,char *message="msg");
 
     /** \brief Finishes generation of R1 proof, the part after receiving the challenge x.
      *  \param[in] a - List of randomly generated scalars. These values are used in the rest of sigma proof.

@@ -15,7 +15,7 @@ public:
 
     bool verify(const std::vector<GroupElement>& commits,
                 const SigmaPlusProof<Exponent, GroupElement>& proof,
-                bool fPadding) const;
+                bool fPadding,char *message="msg") const;
 
 private:
     GroupElement g_;

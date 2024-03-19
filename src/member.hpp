@@ -1,0 +1,6 @@
+namespace sigma {
+Member::Member()
+{
+
+}  
+}

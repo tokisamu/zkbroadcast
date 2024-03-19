@@ -1,4 +1,5 @@
 #include <math.h>
+#include<iostream>
 namespace sigma{
 template<class Exponent, class GroupElement>
 SigmaPlusVerifier<Exponent, GroupElement>::SigmaPlusVerifier(
@@ -16,8 +17,7 @@ template<class Exponent, class GroupElement>
 bool SigmaPlusVerifier<Exponent, GroupElement>::verify(
         const std::vector<GroupElement>& commits,
         const SigmaPlusProof<Exponent, GroupElement>& proof,
-        bool fPadding) const {
-
+        bool fPadding,char *message) const {
     R1ProofVerifier<Exponent, GroupElement> r1ProofVerifier(g_, h_, proof.B_, n, m);
     std::vector<Exponent> f;
     const R1Proof<Exponent, GroupElement>& r1Proof = proof.r1Proof_;
@@ -39,7 +39,7 @@ bool SigmaPlusVerifier<Exponent, GroupElement>::verify(
 
     group_elements.insert(group_elements.end(), Gk.begin(), Gk.end());
     Exponent challenge_x;
-    SigmaPrimitives<Exponent, GroupElement>::generate_challenge(group_elements, challenge_x);
+    SigmaPrimitives<Exponent, GroupElement>::generate_challenge(group_elements, challenge_x,message);
 
     // Now verify the final response of r1 proof. Values of "f" are finalized only after this call.
     if (!r1ProofVerifier.verify_final_response(r1Proof, challenge_x, f))
